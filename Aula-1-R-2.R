@@ -93,31 +93,96 @@ sd(dadosE)
 #raiz da variância
 sqrt(var(dadosE))
 
-#verifica qual média de idade do conjunto de dados (todos);
 
-#verificar a média de idade de cada conjunto de tratamento 1, 2 e 3
+#Verifica qual a média de idade do conjunto de dados (todos);
 
-#verificar a média de idade de cada sexo:
-
-#verificar a média da pressão arterial de cada grupo e a variância da pressão arterial de cada grupo
-
-#verificar a cariância de cada grupo por tipo de tratamento
-
-#Dividir os dados em dois grupos considerando a média de idade dos indivídos,
-#ou seja acima ou igual a média 
-#e o outro abaixo da média. 
-
-#Comparar os dois grupos, média, mediana, variância e desvio padrão
+media <- median(dfDiabetes$Idade)
 
 
+#Verificar a média de idade de cada grupo de tratamento 1, 2 e 3;
+
+dfDiabetes1 <- subset(dfDiabetes, dfDiabetes$Tratamento==1)
+median(dfDiabetes1$Idade)
+
+dfDiabetes2 <- subset(dfDiabetes, dfDiabetes$Tratamento==2)
+median(dfDiabetes2$Idade)
+
+dfDiabetes3 <- subset(dfDiabetes, dfDiabetes$Tratamento==3)
+median(dfDiabetes3$Idade)
+
+#Verifica a média de idade de cada sexo;
+
+median(dfDiabetesM$Idade)
+median(dfDiabetesF$Idade)
+
+#Verificar a média da pressão arterial de cada grupo e a variância da pressão arterial 
+#de cada grupo;
+
+median(dfDiabetes1$Pres)
+median(dfDiabetes2$Pres)
+median(dfDiabetes3$Pres)
+
+variancia1 <- var(dfDiabetes1$Pres)
+variancia2 <- var(dfDiabetes2$Pres)
+variancia3 <- var(dfDiabetes3$Pres)
+
+#Dividir os dados em dois grupos considerando a média de idade dos indivíduos, ou 
+#seja, um grupo acima ou igual a média e outro abaixo da média.
+
+acimaMedia <- subset(dfDiabetes, dfDiabetes$Idade > media)
+print(acimaMedia)
+
+abaixoMedia <- subset(dfDiabetes, dfDiabetes$Idade < media)
+print(abaixoMedia)
+
+#Comparar os dois grupos, média, mediana, variância e desvio padrão.
+
+mean(acimaMedia)
+mean(abaixoMedia)
+
+median(acimaMedia)
+median(abaixoMedia)
+
+var(acimaMedia)
+var(abaixoMedia)
+
+library(stats)
+sd(acimaMedia)
+sd(abaixoMedia)
+
+#Considere que os valores do arquivo são as medições finais do tratamento realizado 
+#pelos pacientes. O tratamento consistiu em testar três métodos de controle da 
+#pressão arterial. Neste sentido, informe qual foi o método que obteve o melhor 
+#resultado.
+
+sqrt(variancia1)
+sqrt(variancia2)
+sqrt(variancia3)
+
+#Observação sobre o coeficiente de variação: quanto o percentual é zero significa 
+#que não ocorreu variação (quanto menor mais homogêneo os dados estão).
+#Escreva um texto explicando como você chegou ao resultado
+
+
+#carregamento de dados
+df2 <- as.data.frame(read.csv("aeusp-alt4.csv", header = TRUE, sep = ";", dec = ","))
 
 
 
+#filtrar dataset
+tbSudeste <- subset(df2, df2$Reproce == "Sudeste")
 
+tbSudesteR <- subset(df2, df2$Reproce == "Sudeste" & df2$Renda > 3)
 
+#mudar o dataframe
+tbTmp <- data.frame(Comun=tbSudesteR$Comun, Renda=tbSudesteR$Renda)
+tbTmp
 
-
-
+#for em dataset
+for(row in 1:nrow(df2)) {
+  s <- df2[row, 'Num']
+  print(s)
+}
 
 
 
